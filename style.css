@@ -7,54 +7,62 @@
   --primary: #0f172a;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html,
 body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: var(--bg);
+  width: 100vw !important;
+  height: 100vh !important;
+  min-width: 100vw !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--bg) !important;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* Container utama: otomatis ikut ukuran layar PC / mobile */
+/* FULL LAYAR PC DAN MOBILE */
+.app-shell,
 .phone-shell {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100dvh;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: var(--bg);
-  border-radius: 0;
-  border: none;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 100vw !important;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--bg) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
-/* Header atas */
+/* HEADER FULL LEBAR */
 .app-header {
-  flex: 0 0 auto;
-  width: 100%;
-  min-height: 64px;
-  padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto !important;
+  width: 100vw !important;
+  min-height: 64px !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
   backdrop-filter: blur(12px);
-  z-index: 20;
+  z-index: 20 !important;
 }
 
 .brand {
@@ -101,18 +109,19 @@ body {
   flex: 0 0 auto;
 }
 
-/* Iframe otomatis memenuhi sisa layar */
+/* IFRAME ISI SISA LAYAR */
 .app-frame {
-  flex: 1 1 auto;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  border: 0;
-  display: block;
-  background: white;
+  flex: 1 1 auto !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  display: block !important;
+  background: white !important;
 }
 
-/* Loader dan fallback di tengah layar */
+/* LOADER */
 .loader-card,
 .fallback-card {
   position: fixed;
@@ -195,12 +204,12 @@ body {
   font-weight: 700;
 }
 
-/* Penyesuaian khusus HP */
+/* HP */
 @media (max-width: 600px) {
   .app-header {
-    min-height: 58px;
-    padding-left: 10px;
-    padding-right: 10px;
+    min-height: 58px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 
   .brand-icon {
@@ -219,5 +228,27 @@ body {
   .header-btn {
     padding: 8px 11px;
     font-size: 12px;
+  }
+}
+
+/* MATIKAN TOTAL MODE FRAME HP DI DESKTOP */
+@media (min-width: 601px) {
+  body {
+    display: block !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    padding: 0 !important;
+    background: var(--bg) !important;
+  }
+
+  .app-shell,
+  .phone-shell {
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
   }
 }
