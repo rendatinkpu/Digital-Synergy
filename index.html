@@ -9,10 +9,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Bukti" />
   <meta name="description" content="PWA wrapper untuk aplikasi Google Apps Script." />
-  <link rel="manifest" href="manifest.webmanifest" />
+
+  <link rel="manifest" href="manifest.webmanifest?v=4" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- PENTING: pakai versi supaya cache lama kalah -->
+  <link rel="stylesheet" href="style.css?v=4" />
+
   <title>Bukti Dukung</title>
 </head>
 <body>
@@ -20,7 +24,7 @@
     <div class="noscript">Aplikasi ini membutuhkan JavaScript aktif.</div>
   </noscript>
 
-  <main class="phone-shell" aria-label="Aplikasi Bukti Dukung">
+  <main class="app-shell" aria-label="Aplikasi Bukti Dukung">
     <header class="app-header">
       <div class="brand">
         <img src="icons/icon-192.png" alt="" class="brand-icon" />
@@ -40,7 +44,7 @@
 
     <section id="fallback" class="fallback-card" hidden>
       <h2>Jika aplikasi tidak muncul</h2>
-      <p>GitHub Pages hanya bisa menampilkan Apps Script di dalam PWA kalau Apps Script mengizinkan embed iframe.</p>
+      <p>Cloudflare/GitHub hanya bisa menampilkan Apps Script di dalam PWA kalau Apps Script mengizinkan embed iframe.</p>
       <div class="fallback-actions">
         <button id="reloadBtn" class="primary-btn" type="button">Muat ulang</button>
         <a id="openOriginalBtn" class="secondary-btn" href="#" target="_blank" rel="noopener">Buka aplikasi asli</a>
@@ -56,7 +60,7 @@
     ></iframe>
   </main>
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <script src="config.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
