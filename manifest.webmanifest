@@ -1,7 +1,7 @@
 {
   "name": "Bukti Dukung",
   "short_name": "Bukti",
-  "description": "PWA wrapper untuk aplikasi Google Apps Script.",
+  "description": "PWA wrapper",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
