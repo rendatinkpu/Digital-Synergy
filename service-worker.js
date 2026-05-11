@@ -7,5 +7,4 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // Sengaja tanpa cache agar update GitHub/Cloudflare langsung terasa.
 });
