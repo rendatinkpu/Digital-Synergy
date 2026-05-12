@@ -3,230 +3,157 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#1e3a8a">
+
+  <title>Digital Synergy</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Bukti">
+  <meta name="apple-mobile-web-app-title" content="Digital Synergy">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="PWA wrapper">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/icon-192.png">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <title>Bukti Dukung</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html,
     body {
       width: 100%;
       height: 100%;
       margin: 0;
+      padding: 0;
       overflow: hidden;
-      background: #f8fafc;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f172a;
+      font-family: Arial, sans-serif;
     }
 
-    .app {
+    #loadingScreen {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100dvh;
+      z-index: 10;
       display: flex;
+      align-items: center;
+      justify-content: center;
       flex-direction: column;
-      overflow: hidden;
-      background: #f8fafc;
-    }
-
-    .bar {
-      flex: 0 0 auto;
-      width: 100%;
-      min-height: 62px;
-      padding: calc(env(safe-area-inset-top, 0px) + 8px) 14px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 12px;
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      z-index: 5;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .brand img {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      flex: 0 0 auto;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.1;
-      color: #0f172a;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .brand p {
-      margin: 3px 0 0;
-      font-size: 12px;
-      color: #64748b;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    #installBtn,
-    #openBtn {
-      border: 0;
-      border-radius: 999px;
-      padding: 9px 13px;
-      background: #0f172a;
       color: #ffffff;
+      text-align: center;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+
+    #loadingScreen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .logoBox {
+      width: 76px;
+      height: 76px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, .16);
+      font-weight: 900;
+      letter-spacing: .08em;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .24);
+    }
+
+    .appTitle {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .appSubTitle {
+      margin: 0;
+      font-size: 11px;
       font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
+      opacity: .8;
+      text-transform: uppercase;
+      letter-spacing: .12em;
     }
 
     #appFrame {
-      flex: 1 1 auto;
-      width: 100%;
-      height: 100%;
-      min-height: 0;
-      border: 0;
+      width: 100vw;
+      height: 100dvh;
       display: block;
-      background: #ffffff;
+      border: 0;
+      background: #f8fafc;
     }
 
-    .loader {
+    #offlineNotice {
       position: fixed;
-      left: 50%;
-      top: 50%;
-      z-index: 10;
-      width: min(90vw, 360px);
-      transform: translate(-50%, -50%);
-      padding: 22px;
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      z-index: 20;
+      display: none;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #991b1b;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
       text-align: center;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 18px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, .14);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .25);
     }
 
-    .loader p {
-      margin: 8px 0 0;
-      font-size: 13px;
-      line-height: 1.45;
-      color: #64748b;
-    }
-
-    .spinner {
-      width: 34px;
-      height: 34px;
-      margin: 0 auto 12px;
-      border-radius: 50%;
-      border: 4px solid #e2e8f0;
-      border-top-color: #0f172a;
-      animation: spin .8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 600px) {
-      .bar {
-        min-height: 58px;
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-
-      .brand img {
-        width: 34px;
-        height: 34px;
-      }
-
-      .brand h1 { font-size: 15px; }
-      .brand p { font-size: 11px; }
-      #installBtn, #openBtn { padding: 8px 11px; font-size: 12px; }
+    body.is-offline #offlineNotice {
+      display: block;
     }
   </style>
 </head>
+
 <body>
-  <main class="app">
-    <header class="bar">
-      <div class="brand">
-        <img src="icons/icon-192.png" alt="">
-        <div>
-          <h1 id="appTitle">Bukti Dukung</h1>
-          <p id="statusText">Menghubungkan...</p>
-        </div>
-      </div>
-      <button id="installBtn" type="button" hidden>Install</button>
-    </header>
+  <div id="loadingScreen">
+    <div class="logoBox">KPU</div>
+    <p class="appTitle">Digital Synergy</p>
+    <p class="appSubTitle">Memuat Aplikasi</p>
+  </div>
 
-    <div id="loader" class="loader">
-      <div class="spinner"></div>
-      <b>Memuat aplikasi...</b>
-    </div>
+  <!-- GANTI LINK DI BAWAH INI DENGAN LINK /exec APPS SCRIPT ANDA -->
+  <iframe
+    id="appFrame"
+    title="Digital Synergy Apps Script"
+    src="PASTE_LINK_EXEC_APPS_SCRIPT_DI_SINI"
+    allow="clipboard-read; clipboard-write; fullscreen">
+  </iframe>
 
-    <iframe
-      id="appFrame"
-      title="Bukti Dukung E-Lapkin"
-      referrerpolicy="no-referrer-when-downgrade"
-      allow="clipboard-read; clipboard-write; camera; microphone; geolocation; fullscreen"
-    ></iframe>
-  </main>
+  <div id="offlineNotice">
+    Koneksi internet terputus. PWA terbuka, tetapi aplikasi Apps Script tetap membutuhkan internet.
+  </div>
 
   <script>
-    const APP_NAME = "Bukti Dukung E-Lapkin";
-    const APP_URL = "https://script.google.com/macros/s/AKfycbxKbvrkWow4UFEHWj_DrqpF5r3-2A8WMKqa5i9s3zymxSOijilpycJ_F6iL1VGeH-qu4g/exec";
+    const loadingScreen = document.getElementById('loadingScreen');
+    const appFrame = document.getElementById('appFrame');
 
-    const appTitle = document.getElementById("appTitle");
-    const statusText = document.getElementById("statusText");
-    const frame = document.getElementById("appFrame");
-    const loader = document.getElementById("loader");
-    const installBtn = document.getElementById("installBtn");
-
-    let installPrompt = null;
-
-    document.title = APP_NAME;
-    appTitle.textContent = APP_NAME;
-    frame.src = APP_URL;
-
-    frame.addEventListener("load", () => {
-      loader.hidden = true;
-      statusText.textContent = "Online";
+    appFrame.addEventListener('load', () => {
+      loadingScreen.classList.add('hide');
     });
 
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      installPrompt = event;
-      installBtn.hidden = false;
-    });
+    setTimeout(() => {
+      loadingScreen.classList.add('hide');
+    }, 6500);
 
-    installBtn.addEventListener("click", async () => {
-      if (!installPrompt) return;
-      installPrompt.prompt();
-      await installPrompt.userChoice;
-      installPrompt = null;
-      installBtn.hidden = true;
-    });
+    function updateOnlineStatus() {
+      document.body.classList.toggle('is-offline', !navigator.onLine);
+    }
 
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .catch(error => console.log('Service Worker gagal:', error));
       });
     }
   </script>
